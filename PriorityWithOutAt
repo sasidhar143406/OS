@@ -1,0 +1,66 @@
+#include<stdio.h>
+int main()
+{
+  int burst[30],pt[30],tat[30],ct[30],wt[30],prs[30],n,i,j,temp=0;
+  float awt=0;
+  printf("enter the number of process\n");
+  scanf("%d",&n);
+  printf("enter the process\n");
+  for(i=0;i<n;i++)
+  {
+    scanf("%d",&prs[i]);
+  } 
+  
+   printf("enter the burst times\n");
+  for(i=0;i<n;i++)
+  {
+    scanf("%d",&burst[i]);
+  }
+printf("enter the prorities\n");
+  for(i=0;i<n;i++)
+  {
+    scanf("%d",&pt[i]);
+  }
+ for(i=0;i<n-1;i++)
+  {
+     for(j=0;j<n-i-1;j++)
+     {
+       
+       temp=pt[j];
+       pt[j]=pt[j+1];
+       pt[j+1]=temp;
+
+      
+       temp=prs[j];
+       prs[j]=prs[j+1];
+       prs[j+1]=temp;
+
+       temp=burst[j];
+       burst[j]=burst[j+1];
+       burst[j+1]=temp;
+     }
+  }
+  ct[0]=burst[0];
+  for(i=1;i<n;i++)
+  {
+    ct[i]=ct[i-1]+burst[i];
+  }
+  for(i=0;i<n;i++)
+  {  
+     tat[i]=ct[i];
+     
+   }
+   for(i=0;i<n;i++)
+   {
+      wt[i]=tat[i]-burst[i];
+      }
+   
+    for(i=0;i<n;i++)
+    {
+       awt+=wt[i];
+     }
+     awt=awt/n;
+     printf("average waiting time  is: %f",awt); 
+            
+   return 0;
+ }   
