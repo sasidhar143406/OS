@@ -41,19 +41,10 @@ int main()
   for(i=0;i<n;i++)
   {  
      tat[i]=ct[i]-at[i];
-     
-   }
-   for(i=0;i<n;i++)
-   {
       wt[i]=tat[i]-burst[i];
-      }
-   
-    for(i=0;i<n;i++)
-    {
        awt+=wt[i];
      }
      awt=awt/n;
-     printf("average waiting time  is: %f",awt); 
-            
+     printf("average waiting time  is: %f",awt);           
    return 0;
- }   
+ }  
