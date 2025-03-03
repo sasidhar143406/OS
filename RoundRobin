@@ -24,10 +24,8 @@ int main()
   }
   ct[0]=0;
   while(r<tt){
-  
   for(i=0;i<n;i++)
   {
-  
   if(burst[i]!=0)
   {
     if(burst[i]>=t)
@@ -45,20 +43,14 @@ int main()
        burst[i]=0;  
      }
    }
-   
   }
   } 
  for(i=0;i<n;i++)
    {
       wt[i]=ct[i]-rt[i];
-      }
-   
-    for(i=0;i<n;i++)
-    {
        awt+=wt[i];
-     }
+    }
      awt=awt/n;
-     printf("average waiting time  is: %f",awt); 
-            
+     printf("average waiting time  is: %f",awt);          
    return 0;
- }  
+ } 
