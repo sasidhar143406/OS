@@ -1,68 +1,65 @@
-#include<stdio.h>
-  int mutex=1,full=0,empty=5,x=0;
-  int wait(int s){
-s--;
+#include <stdio.h>
+#include <stdlib.h>
+
+int mutex = 1, full = 0, empty = 5, x = 0; 
+void wait(int *s) {
+    (*s)--; 
 }
-
-int signal(int s){
-s++;
+void signal(int *s) {
+    (*s)++;  
 }
+void Producer() {
+    wait(&empty);   
+    wait(&mutex);    
+    printf("Item is produced. Total items: %d\n", ++x);
 
-int Producer(){
-     
-          wait(empty);
-          wait(mutex);
-           printf("Item is produced");
-           x++;
-
-          signal(mutex);
-          signal(full);
-         
-
+    signal(&mutex);
+    signal(&full);   
 }
-int Consumer(){
-      
-       wait(full);
-       wait(mutex);
-       printf("Item is consumed");
-       x--;
+void Consumer() {
+    wait(&full);     
+    wait(&mutex);   
 
-       signal(mutex);
-       signal(empty);
-      
-}
- 
-int main(){
-    int choice,i;
-    printf("1.Producer\n2.Consumer\n3.Exit");
-    for(i=1;i>=0;i++)
-    {
-       printf("enter your choice");
-       scanf("%d",&choice);
-       switch(choice)
-       {
-          case 1:if(empty!=0 && mutex==1)
-                  {
-                    Producer();
-                   }
-                  else
-                  {
-                     printf("Buffer is empty");
-                   }
-                   break;
-          case 2:if(mutex==1&& full!=0)
-                 {
-                   Consumer();
-                  }
-                  else
-                  {
-                     printf("Buffer is full");
-                   }
-                   break;
-          case 3:printf("You have exited from the buffer");
-                   
-                 break;
-       }
-   }
- }                                    
     
+    printf("Item is consumed. Total items: %d\n", --x);
+
+    signal(&mutex);  
+    signal(&empty);  
+}
+int main() {
+    int choice;
+
+    while (1) {
+        printf("\n1. Producer\n2. Consumer\n3. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+            case 1:
+                if (empty != 0) {
+                    Producer();
+                } else {
+                    printf("Buffer is full\n");
+                }
+                break;
+
+            case 2:
+                if (full != 0) {
+                    Consumer();
+                } else {
+                    printf("Buffer is empty\n");
+                }
+                break;
+
+            case 3:
+                printf("Exiting the buffer simulation.\n");
+                exit(0);  
+
+            default:
+                printf("Invalid choice. Please enter a valid option.\n");
+                break;
+        }
+    }
+
+    return 0;
+}
